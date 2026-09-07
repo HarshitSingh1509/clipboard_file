@@ -4,7 +4,7 @@
 #
 Pod::Spec.new do |s|
   s.name             = 'clipboard_file'
-  s.version          = '0.1.0'
+  s.version          = '0.1.1'
   s.summary          = 'Read and copy files from the system clipboard on iOS and Android.'
   s.description      = <<-DESC
 Read images, PDFs, Office documents, CSV, and other files from the clipboard on iOS and Android.
