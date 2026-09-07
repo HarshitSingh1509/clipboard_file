@@ -23,7 +23,7 @@ public class ClipboardFilePlugin: NSObject, FlutterPlugin {
         return
       }
       ClipboardFileReader.copyImage(data: imageData.data, result: result)
-    case "readImage", "readFile":
+    case "readFile":
       ClipboardFileReader.readFile(from: UIPasteboard.general, completion: result)
     default:
       result(FlutterMethodNotImplemented)

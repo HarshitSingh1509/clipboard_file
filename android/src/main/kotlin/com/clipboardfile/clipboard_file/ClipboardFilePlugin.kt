@@ -28,7 +28,7 @@ class ClipboardFilePlugin : FlutterPlugin, MethodCallHandler {
     override fun onMethodCall(call: MethodCall, result: Result) {
         when (call.method) {
             "copyImage" -> copyImage(call, result)
-            "readImage", "readFile" -> {
+            "readFile" -> {
                 try {
                     result.success(readFileFromClipboard())
                 } catch (e: Exception) {

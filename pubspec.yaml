@@ -1,6 +1,6 @@
 name: clipboard_file
 description: Read and copy files from the system clipboard on iOS and Android, including images, PDFs, Office documents, and CSV.
-version: 0.1.0
+version: 0.1.1
 homepage: https://github.com/HarshitSingh1509/clipboard_file
 repository: https://github.com/HarshitSingh1509/clipboard_file
 issue_tracker: https://github.com/HarshitSingh1509/clipboard_file/issues

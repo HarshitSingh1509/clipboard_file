@@ -6,8 +6,7 @@ Supports pasted images, PDFs, Office documents, CSV, and other common file types
 
 ## Features
 
-- `ClipboardFileReader.readFile()` — read a file from the clipboard (returns `null` for plain text)
-- `ClipboardFileReader.readImage()` — read image bytes from the clipboard
+- `ClipboardFileReader.readFile()` — read a file or image from the clipboard (returns `null` for plain text)
 - `ClipboardFileReader.copyImage()` — copy PNG/JPEG bytes to the clipboard
 
 ## Usage

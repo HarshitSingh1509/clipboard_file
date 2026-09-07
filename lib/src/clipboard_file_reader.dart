@@ -13,14 +13,7 @@ class ClipboardFileReader {
     await _channel.invokeMethod<void>('copyImage', bytes);
   }
 
-  /// Returns clipboard image data when present, otherwise `null`.
-  static Future<ClipboardImageData?> readImage() async {
-    final file = await readFile();
-    if (file == null) return null;
-    return ClipboardImageData(bytes: file.bytes, extension: file.extension);
-  }
-
-  /// Returns clipboard file data when present, otherwise `null`.
+  /// Returns clipboard file or image data when present, otherwise `null`.
   ///
   /// Plain text without file metadata returns `null` so callers can fall back
   /// to normal text paste.
