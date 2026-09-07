@@ -30,7 +30,7 @@ Add `clipboard_file` to your `pubspec.yaml`:
 
 ```yaml
 dependencies:
-  clipboard_file: ^0.1.1
+  clipboard_file: ^0.1.2
 ```
 
 Then run:
