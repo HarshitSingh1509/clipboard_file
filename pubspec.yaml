@@ -1,0 +1,29 @@
+name: clipboard_file
+description: Read and copy files from the system clipboard on iOS and Android, including images, PDFs, Office documents, and CSV.
+version: 0.1.0
+homepage: https://github.com/HarshitSingh1509/clipboard_file
+repository: https://github.com/HarshitSingh1509/clipboard_file
+issue_tracker: https://github.com/HarshitSingh1509/clipboard_file/issues
+license: MIT
+
+environment:
+  sdk: ^3.8.1
+  flutter: '>=3.3.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^6.0.0
+
+flutter:
+  plugin:
+    platforms:
+      android:
+        package: com.clipboardfile.clipboard_file
+        pluginClass: ClipboardFilePlugin
+      ios:
+        pluginClass: ClipboardFilePlugin
