@@ -2,6 +2,7 @@
 
 - Merged `readImage()` into `readFile()`; use `readFile()` for both files and images.
 - Removed `ClipboardImageData` and the separate `readImage()` API.
+- Updated README, example app, and integration tests for public release.
 
 ## 0.1.0
 

@@ -4,7 +4,15 @@ version: 0.1.1
 homepage: https://github.com/HarshitSingh1509/clipboard_file
 repository: https://github.com/HarshitSingh1509/clipboard_file
 issue_tracker: https://github.com/HarshitSingh1509/clipboard_file/issues
+documentation: https://pub.dev/documentation/clipboard_file/latest/
 license: MIT
+topics:
+  - clipboard
+  - flutter-plugin
+  - file
+  - paste
+  - ios
+  - android
 
 environment:
   sdk: ^3.8.1

@@ -1,58 +1,73 @@
-import 'package:flutter/material.dart';
-import 'dart:async';
-
-import 'package:flutter/services.dart';
 import 'package:clipboard_file/clipboard_file.dart';
+import 'package:flutter/material.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(const ClipboardFileExampleApp());
 }
 
-class MyApp extends StatefulWidget {
-  const MyApp({super.key});
+class ClipboardFileExampleApp extends StatelessWidget {
+  const ClipboardFileExampleApp({super.key});
 
   @override
-  State<MyApp> createState() => _MyAppState();
-}
-
-class _MyAppState extends State<MyApp> {
-  String _platformVersion = 'Unknown';
-  final _clipboardFilePlugin = ClipboardFile();
-
-  @override
-  void initState() {
-    super.initState();
-    initPlatformState();
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'clipboard_file example',
+      home: const ClipboardDemoPage(),
+    );
   }
+}
 
-  // Platform messages are asynchronous, so we initialize in an async method.
-  Future<void> initPlatformState() async {
-    String platformVersion;
-    // Platform messages may fail, so we use a try/catch PlatformException.
-    // We also handle the message potentially returning null.
-    try {
-      platformVersion =
-          await _clipboardFilePlugin.getPlatformVersion() ?? 'Unknown platform version';
-    } on PlatformException {
-      platformVersion = 'Failed to get platform version.';
-    }
+class ClipboardDemoPage extends StatefulWidget {
+  const ClipboardDemoPage({super.key});
 
-    // If the widget was removed from the tree while the asynchronous platform
-    // message was in flight, we want to discard the reply rather than calling
-    // setState to update our non-existent appearance.
+  @override
+  State<ClipboardDemoPage> createState() => _ClipboardDemoPageState();
+}
+
+class _ClipboardDemoPageState extends State<ClipboardDemoPage> {
+  String _status =
+      'Copy a file or image to the clipboard, then tap Read clipboard file.';
+
+  Future<void> _readClipboard() async {
+    setState(() => _status = 'Reading clipboard...');
+
+    final file = await ClipboardFileReader.readFile();
     if (!mounted) return;
 
     setState(() {
-      _platformVersion = platformVersion;
+      if (file == null) {
+        _status = 'No file on clipboard (plain text or empty).';
+        return;
+      }
+
+      final name = file.fileName ?? 'unnamed.${file.extension}';
+      _status =
+          'Read $name\n${file.bytes.length} bytes\nExtension: .${file.extension}';
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
-        appBar: AppBar(title: const Text('Plugin example app')),
-        body: Center(child: Text('Running on: $_platformVersion\n')),
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('clipboard_file'),
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(24),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            Text(
+              _status,
+              style: Theme.of(context).textTheme.bodyLarge,
+            ),
+            const SizedBox(height: 24),
+            FilledButton(
+              onPressed: _readClipboard,
+              child: const Text('Read clipboard file'),
+            ),
+          ],
+        ),
       ),
     );
   }
