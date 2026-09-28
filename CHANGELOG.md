@@ -1,3 +1,9 @@
+## 0.1.5
+
+### Dart
+
+- Add `dedupeClipboardFiles()` and apply it in `ClipboardFileReader.readFiles()` to collapse the common iOS single-photo duplicate (unnamed image + named `IMG_*.png`) without affecting multi-image pastes.
+
 ## 0.1.4
 
 ### Android build fix

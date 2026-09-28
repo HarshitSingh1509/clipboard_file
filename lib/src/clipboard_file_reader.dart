@@ -1,6 +1,7 @@
 import 'package:flutter/services.dart';
 
 import 'clipboard_file_data.dart';
+import 'clipboard_file_dedupe.dart';
 import 'clipboard_image_format.dart';
 
 /// Reads files and images from the native clipboard on iOS and Android.
@@ -49,7 +50,9 @@ class ClipboardFileReader {
         final single = await _channel.invokeMethod<Object?>('readFile');
         if (single is Map) {
           final parsed = _parseClipboardMap(single);
-          return parsed == null ? [] : [parsed];
+          return parsed == null
+              ? []
+              : dedupeClipboardFiles([parsed]);
         }
         return [];
       }
@@ -60,7 +63,7 @@ class ClipboardFileReader {
         final parsed = _parseClipboardMap(item);
         if (parsed != null) files.add(parsed);
       }
-      return files;
+      return dedupeClipboardFiles(files);
     } on PlatformException {
       return [];
     } on MissingPluginException {

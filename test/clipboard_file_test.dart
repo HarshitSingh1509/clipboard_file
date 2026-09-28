@@ -44,6 +44,49 @@ void main() {
     );
   });
 
+  test('dedupeClipboardFiles collapses iOS photo duplicate only', () {
+    final unnamed = ClipboardFileData(
+      bytes: Uint8List.fromList(List.filled(10, 1)),
+      extension: 'png',
+    );
+    final named = ClipboardFileData(
+      bytes: Uint8List.fromList(List.filled(12, 2)),
+      extension: 'png',
+      fileName: 'IMG_0045.png',
+    );
+
+    final result = dedupeClipboardFiles([unnamed, named]);
+    expect(result, hasLength(1));
+    expect(result.single.fileName, 'IMG_0045.png');
+  });
+
+  test('dedupeClipboardFiles keeps Teams multi-image paste', () {
+    final images = List.generate(
+      3,
+      (i) => ClipboardFileData(
+        bytes: Uint8List.fromList([i, i, i]),
+        extension: 'png',
+      ),
+    );
+
+    expect(dedupeClipboardFiles(images), images);
+  });
+
+  test('dedupeClipboardFiles keeps multiple named images', () {
+    final a = ClipboardFileData(
+      bytes: Uint8List.fromList([1]),
+      extension: 'png',
+      fileName: 'a.png',
+    );
+    final b = ClipboardFileData(
+      bytes: Uint8List.fromList([2]),
+      extension: 'png',
+      fileName: 'b.png',
+    );
+
+    expect(dedupeClipboardFiles([a, b]), [a, b]);
+  });
+
   test('ClipboardFileData stores metadata', () {
     final data = ClipboardFileData(
       bytes: Uint8List.fromList([1, 2, 3]),
