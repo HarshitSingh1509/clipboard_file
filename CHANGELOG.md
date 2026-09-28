@@ -1,3 +1,10 @@
+## 0.1.4
+
+### Android build fix
+
+- Fix Kotlin compile errors on newer Android SDK: pass `Context` to `ClipData.Item.coerceToHtmlText()` (not `ContentResolver`).
+- Use explicit `mutableMapOf<String, Any>()` for HTML image payloads so `ByteArray` map entries type-check correctly.
+
 ## 0.1.3
 
 ### Teams / Jira / multi-image paste

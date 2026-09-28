@@ -118,7 +118,7 @@ class ClipboardFilePlugin : FlutterPlugin, MethodCallHandler {
 
         for (index in 0 until clip.itemCount) {
             val item = clip.getItemAt(index)
-            val html = item.coerceToHtmlText(applicationContext.contentResolver)
+            val html = item.coerceToHtmlText(applicationContext)
             readImagePayloadFromHtml(html)?.let { return it }
         }
 
@@ -127,7 +127,7 @@ class ClipboardFilePlugin : FlutterPlugin, MethodCallHandler {
             if (text.isEmpty() || isImagePlaceholderText(text)) return null
             val bytes = text.toByteArray(Charsets.UTF_8)
             val extension = extensionFrom(clipLabel, null, bytes) ?: return null
-            return mutableMapOf(
+            return mutableMapOf<String, Any>(
                 "bytes" to bytes,
                 "extension" to extension,
                 "fileName" to clipLabel,
@@ -182,7 +182,7 @@ class ClipboardFilePlugin : FlutterPlugin, MethodCallHandler {
         }
 
         for (index in 0 until clip.itemCount) {
-            val html = clip.getItemAt(index).coerceToHtmlText(applicationContext.contentResolver)
+            val html = clip.getItemAt(index).coerceToHtmlText(applicationContext)
             readAllImagePayloadsFromHtml(html).forEach { addPayload(it) }
         }
 
@@ -245,9 +245,9 @@ class ClipboardFilePlugin : FlutterPlugin, MethodCallHandler {
             else -> detectImageExtension("image/$subtype", bytes) ?: return null
         }
 
-        return mutableMapOf(
+        return mutableMapOf<String, Any>(
             "bytes" to bytes,
-            "extension" to resolveImageExtension(bytes, null, "image/$declared") ?: declared,
+            "extension" to (resolveImageExtension(bytes, null, "image/$declared") ?: declared),
         )
     }
 
